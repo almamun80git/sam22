@@ -30,12 +30,3 @@ An interactive, responsive single-page portfolio built with a classic 8-bit/term
 - **FontAwesome v6** (Social & technology icons)
 
 ---
-
-## 🚀 Quick Start
-
-No build tools or package managers required. Simply clone and run!
-
-### 1. Clone the repository
-```bash
-git clone [https://github.com/your-username/sam22-portfolio.git](https://github.com/your-username/sam22-portfolio.git)
-cd sam22-portfolio
