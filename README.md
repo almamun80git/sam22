@@ -2,7 +2,7 @@
 
 # 🕹️ SAM22 — Retro Portfolio Webpage
 
-An interactive, responsive single-page portfolio built with a classic 8-bit/terminal retro aesthetic. Showcasing my skills, current work, and past projects in **Java**, **Spring Boot**, **REST APIs**, **PostgreSQL**, and **Android Studio**.
+An interactive, responsive single-page portfolio built with a classic 8-bit/terminal retro aesthetic. Showcasing my skills, current work, and past projects in **Python**, **Django**, **REST APIs**, **PostgreSQL**, and **Web Apps**.
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
@@ -16,7 +16,7 @@ An interactive, responsive single-page portfolio built with a classic 8-bit/term
 - **Retro Typography & Style:** Styled with monospace pixel fonts (`VT323` and `Courier Prime`) alongside a clean cream & light-black color palette.
 - **Fixed Navigation:** Top navbar pinned with custom `<SAM22 />` logo and smooth-scrolling section links.
 - **Interactive Dark / Light Mode:** Instant theme switching stored in `localStorage` to preserve user preferences across sessions.
-- **Tech Stack Spotlight:** Cards dedicated to Java, Spring Boot, REST API, PostgreSQL, and Android Studio.
+- **Tech Stack Spotlight:** Cards dedicated to Python • FastAPI • Django • PostgreSQL - Docker • Linux • CI/CD • PySide6
 - **Responsive Design:** Optimized for both desktop and mobile viewing with zero external framework bloat.
 - **Social Media Footer:** Direct links to GitHub, LinkedIn, Twitter/X, and Email via FontAwesome icons.
 
