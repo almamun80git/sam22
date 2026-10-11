@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>SAM22 | Python Developer & DevOps Engineer</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=VT323&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet"
+  />
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --card-bg: #f4f4f4;
+      --text-color: #111111;
+      --muted-color: #444444;
+      --accent-color: #d90429;
+      --accent-dark: #a60320;
+      --border-color: #111111;
+      --soft-red: #ffe5e9;
+      --shadow-color: rgba(0, 0, 0, 0.2);
+
+      --font-title: "VT323", monospace;
+      --font-body: "Courier Prime", monospace;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #080808;
+      --card-bg: #151515;
+      --text-color: #ffffff;
+      --muted-color: #cccccc;
+      --accent-color: #ff1744;
+      --accent-dark: #c9002d;
+      --border-color: #ffffff;
+      --soft-red: #350914;
+      --shadow-color: rgba(255, 23, 68, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background:
+        linear-gradient(rgba(217, 4, 41, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(217, 4, 41, 0.025) 1px, transparent 1px),
+        var(--bg-color);
+      background-size: 25px 25px;
+      color: var(--text-color);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      padding-top: 80px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    body::selection {
+      background: var(--accent-color);
+      color: #ffffff;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    /* Header */
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      z-index: 1000;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 5%;
+      background-color: var(--bg-color);
+      border-bottom: 3px solid var(--accent-color);
+      box-shadow: 0 3px 0 var(--border-color);
+    }
+
+    .logo {
+      color: var(--accent-color);
+      font-family: var(--font-title);
+      font-size: 2.2rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-color);
+      font-size: 0.9rem;
+      font-weight: bold;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-color);
+      text-decoration: underline;
+    }
+
+    .theme-toggle,
+    .menu-toggle {
+      background: var(--card-bg);
+      border: 2px solid var(--border-color);
+      box-shadow: 3px 3px 0 var(--accent-color);
+      color: var(--text-color);
+      cursor: pointer;
+      font-family: var(--font-title);
+      padding: 5px 12px;
+    }
+
+    .theme-toggle:active,
+    .menu-toggle:active {
+      box-shadow: none;
+      transform: translate(3px, 3px);
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+    }
+
+    /* General Layout */
+
+    section {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 80px 20px;
+      border-bottom: 2px dashed var(--accent-color);
+    }
+
+    section:last-of-type {
+      border-bottom: none;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: var(--font-title);
+      letter-spacing: 1px;
+    }
+
+    h2 {
+      margin-bottom: 25px;
+      color: var(--accent-color);
+      font-size: 3rem;
+      text-transform: uppercase;
+    }
+
+    .section-description {
+      max-width: 760px;
+      margin-bottom: 30px;
+      color: var(--muted-color);
+    }
+
+    .red {
+      color: var(--accent-color);
+    }
+
+    .terminal-label {
+      display: inline-block;
+      margin-bottom: 15px;
+      color: var(--accent-color);
+      font-size: 1rem;
+      font-weight: bold;
+    }
+
+    /* Hero */
+
+    #home {
+      min-height: calc(100vh - 80px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    #home h1 {
+      margin-bottom: 15px;
+      color: var(--text-color);
+      font-size: clamp(3.2rem, 10vw, 6rem);
+      line-height: 0.95;
+      text-shadow: 4px 4px 0 var(--accent-color);
+    }
+
+    #home h1 span {
+      color: var(--accent-color);
+    }
+
+    .subtitle {
+      max-width: 800px;
+      margin: 0 auto 28px;
+      color: var(--muted-color);
+      font-size: 1.15rem;
+    }
+
+    .terminal-box {
+      max-width: 720px;
+      margin: 35px auto;
+      padding: 22px;
+      background: #050505;
+      border: 3px solid var(--accent-color);
+      box-shadow: 8px 8px 0 var(--border-color);
+      color: #ffffff;
+      text-align: left;
+    }
+
+    .terminal-box .prompt {
+      color: #ff1744;
+    }
+
+    .terminal-box .success {
+      color: #ffffff;
+    }
+
+    .terminal-box .comment {
+      color: #999999;
+    }
+
+    .btn {
+      display: inline-block;
+      border: 2px solid var(--border-color);
+      background-color: var(--accent-color);
+      box-shadow: 5px 5px 0 var(--border-color);
+      color: #ffffff;
+      cursor: pointer;
+      font-family: var(--font-title);
+      font-size: 1.5rem;
+      padding: 10px 22px;
+      text-decoration: none;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      background-color: var(--accent-dark);
+      transform: translate(3px, 3px);
+      box-shadow: 2px 2px 0 var(--border-color);
+    }
+
+    .btn-outline {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px;
+    }
+
+    /* Skills */
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 22px;
+    }
+
+    .skill-card {
+      min-height: 175px;
+      padding: 24px 15px;
+      background-color: var(--card-bg);
+      border: 2px solid var(--border-color);
+      box-shadow: 5px 5px 0 var(--accent-color);
+      text-align: center;
+      transition: 0.2s ease;
+    }
+
+    .skill-card:hover {
+      background-color: var(--soft-red);
+      transform: translateY(-5px);
+    }
+
+    .skill-card i {
+      margin-bottom: 13px;
+      color: var(--accent-color);
+      font-size: 2.8rem;
+    }
+
+    .skill-card h3 {
+      font-size: 1.6rem;
+    }
+
+    .skill-card p {
+      margin-top: 7px;
+      color: var(--muted-color);
+      font-size: 0.85rem;
+    }
+
+    /* Project Cards */
+
+    .project-card {
+      position: relative;
+      margin-bottom: 28px;
+      padding: 26px;
+      background-color: var(--card-bg);
+      border: 2px solid var(--border-color);
+      box-shadow: 6px 6px 0 var(--accent-color);
+    }
+
+    .project-card::before {
+      content: "PROJECT";
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      color: var(--accent-color);
+      font-size: 0.7rem;
+      font-weight: bold;
+    }
+
+    .project-card h3 {
+      margin-bottom: 12px;
+      color: var(--accent-color);
+      font-size: 2.2rem;
+    }
+
+    .project-card p {
+      color: var(--muted-color);
+    }
+
+    .tag-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 3px 9px;
+      background-color: var(--bg-color);
+      border: 1px solid var(--accent-color);
+      color: var(--accent-color);
+      font-size: 0.8rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .project-links a {
+      color: var(--accent-color);
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .project-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Learning Roadmap */
+
+    .roadmap {
+      display: grid;
+      gap: 18px;
+    }
+
+    .roadmap-item {
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .roadmap-number {
+      display: grid;
+      width: 60px;
+      height: 60px;
+      place-items: center;
+      background: var(--accent-color);
+      border: 2px solid var(--border-color);
+      box-shadow: 4px 4px 0 var(--border-color);
+      color: #ffffff;
+      font-family: var(--font-title);
+      font-size: 1.8rem;
+    }
+
+    .roadmap-content {
+      padding: 18px;
+      background-color: var(--card-bg);
+      border: 2px solid var(--border-color);
+    }
+
+    .roadmap-content h3 {
+      margin-bottom: 6px;
+      color: var(--accent-color);
+      font-size: 1.8rem;
+    }
+
+    .roadmap-content p {
+      color: var(--muted-color);
+    }
+
+    /* DevOps */
+
+    .devops-pipeline {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+      gap: 12px;
+      margin: 25px 0 35px;
+    }
+
+    .pipeline-step {
+      padding: 18px 10px;
+      background-color: #050505;
+      border: 2px solid var(--accent-color);
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .pipeline-step i {
+      display: block;
+      margin-bottom: 8px;
+      color: #ff1744;
+      font-size: 1.6rem;
+    }
+
+    .devops-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .devops-card {
+      padding: 22px;
+      background-color: var(--card-bg);
+      border: 2px solid var(--border-color);
+      box-shadow: 4px 4px 0 var(--accent-color);
+    }
+
+    .devops-card h3 {
+      margin-bottom: 10px;
+      color: var(--accent-color);
+      font-size: 1.7rem;
+    }
+
+    .devops-card p {
+      color: var(--muted-color);
+    }
+
+    /* Contact */
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 700px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 13px;
+      resize: vertical;
+      background-color: var(--card-bg);
+      border: 2px solid var(--border-color);
+      color: var(--text-color);
+      font-family: var(--font-body);
+      font-size: 1rem;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: 3px solid var(--accent-color);
+      outline-offset: 2px;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: var(--muted-color);
+    }
+
+    form button {
+      align-self: flex-start;
+    }
+
+    .form-message {
+      display: none;
+      margin-top: 15px;
+      color: var(--accent-color);
+      font-weight: bold;
+    }
+
+    /* Footer */
+
+    footer {
+      padding: 45px 20px;
+      background-color: var(--bg-color);
+      border-top: 3px solid var(--accent-color);
+      text-align: center;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-bottom: 18px;
+    }
+
+    .social-icons a {
+      color: var(--text-color);
+      font-size: 1.8rem;
+      text-decoration: none;
+      transition: 0.2s ease;
+    }
+
+    .social-icons a:hover {
+      color: var(--accent-color);
+      transform: translateY(-4px);
+    }
+
+    footer p {
+      color: var(--muted-color);
+      font-size: 0.9rem;
+    }
+
+    /* Scroll Animation */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+
+    @media (max-width: 850px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 78px;
+        left: 5%;
+        right: 5%;
+
+        display: none;
+        flex-direction: column;
+        gap: 15px;
+
+        padding: 20px;
+        background-color: var(--card-bg);
+        border: 2px solid var(--border-color);
+        box-shadow: 5px 5px 0 var(--accent-color);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      nav {
+        gap: 10px;
+      }
+
+      .theme-toggle {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 0 4%;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+      }
+
+      .theme-toggle {
+        padding: 4px 8px;
+      }
+
+      section {
+        padding: 65px 16px;
+      }
+
+      h2 {
+        font-size: 2.5rem;
+      }
+
+      .roadmap-item {
+        grid-template-columns: 50px 1fr;
+        gap: 12px;
+      }
+
+      .roadmap-number {
+        width: 45px;
+        height: 45px;
+        font-size: 1.4rem;
+      }
+
+      .project-card h3 {
+        font-size: 1.8rem;
+      }
+
+      .hero-buttons .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a href="#home" class="logo">&lt;SAM22 /&gt;</a>
+
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#current-project">Current</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#roadmap">Roadmap</a></li>
+        <li><a href="#devops">DevOps</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <button
+        class="theme-toggle"
+        id="themeToggleBtn"
+        type="button"
+        aria-label="Toggle color theme"
+      >
+        [DARK_MODE]
+      </button>
+
+      <button
+        class="menu-toggle"
+        id="menuToggleBtn"
+        type="button"
+        aria-label="Open navigation menu"
+      >
+        ☰
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="home">
+      <span class="terminal-label">&gt; INITIALIZING_DEVELOPER_PROFILE...</span>
+
+      <h1>
+        HELLO, I'M <span>SAM22</span>
+      </h1>
+
+      <p class="subtitle">
+        &gt; Python Developer, Web Application Builder, Desktop App Creator,
+        and DevOps learner building practical software from code to deployment.
+      </p>
+
+      <div class="terminal-box">
+        <p>
+          <span class="prompt">$ python developer_profile.py</span>
+        </p>
+        <br />
+        <p class="success">Developer profile loaded successfully.</p>
+        <p class="comment"># Focus areas</p>
+        <p>Python • FastAPI • Django • PostgreSQL</p>
+        <p>Docker • Linux • CI/CD • PySide6</p>
+        <p class="comment"># Current mission</p>
+        <p class="success">Build. Automate. Deploy. Improve.</p>
+      </div>
+
+      <div class="hero-buttons">
+        <a href="#projects" class="btn">VIEW_PROJECTS.SH</a>
+        <a href="#contact" class="btn btn-outline">CONTACT_ME.SH</a>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+      <span class="terminal-label">&gt; LOADING_TECH_STACK...</span>
+
+      <h2>// PYTHON_TECH_STACK</h2>
+
+      <p class="section-description">
+        My learning and development stack covers Python programming, web
+        applications, databases, desktop software, automation, and DevOps.
+      </p>
+
+      <div class="skills-grid">
+        <div class="skill-card reveal">
+          <i class="fa-brands fa-python"></i>
+          <h3>PYTHON</h3>
+          <p>Core language, OOP, scripts, automation, and testing.</p>
+        </div>
+
+        <div class="skill-card reveal">
+          <i class="fa-solid fa-bolt"></i>
+          <h3>FASTAPI</h3>
+          <p>Modern APIs, async development, validation, and documentation.</p>
+        </div>
+
+        <div class="skill-card reveal">
+          <i class="fa-solid fa-layer-group"></i>
+          <h3>DJANGO</h3>
+          <p>Full-stack applications, admin panels, authentication, and ORM.</p>
+        </div>
+
+        <div class="skill-card reveal">
+          <i class="fa-solid fa-flask"></i>
+          <h3>FLASK</h3>
+          <p>Lightweight web applications and simple backend services.</p>
+        </div>
+
+        <div class="skill-card reveal">
+          <i class="fa-solid fa-database"></i>
+          <h3>POSTGRESQL</h3>
+          <p>Relational data, SQL, schemas, queries, and migrations.</p>
+        </div>
+
+        <div class="skill-card reveal">
+          <i class="fa-solid fa-window-maximize"></i>
+          <h3>PYSIDE6</h3>
+          <p>Native desktop applications with Python and Qt.</p>
+        </div>
+
+        <div class="skill-card reveal">
+          <i class="fa-brands fa-docker"></i>
+          <h3>DOCKER</h3>
+          <p>Containers, Dockerfiles, services, and reproducible environments.</p>
+        </div>
+
+        <div class="skill-card reveal">
+          <i class="fa-brands fa-linux"></i>
+          <h3>LINUX</h3>
+          <p>Command line, servers, permissions, processes, and deployment.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Current Project -->
+    <section id="current-project">
+      <span class="terminal-label">&gt; CURRENT_WORK_STATUS: ACTIVE</span>
+
+      <h2>// CURRENT_PROJECT</h2>
+
+      <div class="project-card reveal">
+        <h3>Python Distributed Task Scheduler</h3>
+
+        <p>
+          Building a high-throughput background processing system with Python,
+          FastAPI, PostgreSQL, and Celery. The platform is designed to process
+          scheduled jobs, track task status, expose monitoring APIs, and
+          recover failed tasks automatically.
+        </p>
+
+        <div class="tag-container">
+          <span class="tag">Python</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">Celery</span>
+          <span class="tag">Redis</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Docker</span>
+        </div>
+
+        <div class="project-links">
+          <a href="#" aria-label="View source code">
+            <i class="fa-brands fa-github"></i> VIEW_SOURCE
+          </a>
+
+          <a href="#" aria-label="View project documentation">
+            <i class="fa-solid fa-book"></i> DOCUMENTATION
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Previous Projects -->
+    <section id="projects">
+      <span class="terminal-label">&gt; LOADING_PROJECT_ARCHIVE...</span>
+
+      <h2>// PREVIOUS_PROJECTS</h2>
+
+      <div class="project-card reveal">
+        <h3>Python Expense Tracker</h3>
+
+        <p>
+          A personal finance application for recording expenses, organizing
+          spending categories, calculating monthly summaries, and storing data
+          locally using SQLite.
+        </p>
+
+        <div class="tag-container">
+          <span class="tag">Python</span>
+          <span class="tag">PySide6</span>
+          <span class="tag">SQLite</span>
+          <span class="tag">Desktop App</span>
+        </div>
+
+        <div class="project-links">
+          <a href="#">
+            <i class="fa-brands fa-github"></i> VIEW_SOURCE
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <h3>Full-Stack Blog Platform</h3>
+
+        <p>
+          A full-stack blogging platform with user authentication, article
+          management, comments, categories, and a PostgreSQL database.
+        </p>
+
+        <div class="tag-container">
+          <span class="tag">Django</span>
+          <span class="tag">Python</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+        </div>
+
+        <div class="project-links">
+          <a href="#">
+            <i class="fa-brands fa-github"></i> VIEW_SOURCE
+          </a>
+
+          <a href="#">
+            <i class="fa-solid fa-globe"></i> LIVE_DEMO
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <h3>Inventory REST API</h3>
+
+        <p>
+          A REST API for managing products, stock levels, suppliers, user
+          authentication, and inventory updates using FastAPI and PostgreSQL.
+        </p>
+
+        <div class="tag-container">
+          <span class="tag">FastAPI</span>
+          <span class="tag">Pydantic</span>
+          <span class="tag">SQLAlchemy</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">JWT</span>
+        </div>
+
+        <div class="project-links">
+          <a href="#">
+            <i class="fa-brands fa-github"></i> VIEW_SOURCE
+          </a>
+
+          <a href="#">
+            <i class="fa-solid fa-code"></i> API_DOCS
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <h3>Dockerized Python Deployment</h3>
+
+        <p>
+          A production-style Python application packaged with Docker and
+          deployed through GitHub Actions with automated testing and build
+          workflows.
+        </p>
+
+        <div class="tag-container">
+          <span class="tag">Docker</span>
+          <span class="tag">GitHub Actions</span>
+          <span class="tag">Linux</span>
+          <span class="tag">Nginx</span>
+          <span class="tag">CI/CD</span>
+        </div>
+
+        <div class="project-links">
+          <a href="#">
+            <i class="fa-brands fa-github"></i> VIEW_SOURCE
+          </a>
+
+          <a href="#">
+            <i class="fa-solid fa-server"></i> DEPLOYMENT
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Learning Roadmap -->
+    <section id="roadmap">
+      <span class="terminal-label">&gt; READING_LEARNING_ROADMAP.md...</span>
+
+      <h2>// LEARNING_ROADMAP</h2>
+
+      <p class="section-description">
+        A practical path for developing strong Python, web development, and
+        DevOps skills.
+      </p>
+
+      <div class="roadmap">
+        <div class="roadmap-item reveal">
+          <div class="roadmap-number">01</div>
+
+          <div class="roadmap-content">
+            <h3>Python Foundations</h3>
+            <p>
+              Learn functions, classes, modules, exceptions, file handling,
+              virtual environments, packages, and automated testing.
+            </p>
+
+            <div class="tag-container">
+              <span class="tag">Python</span>
+              <span class="tag">OOP</span>
+              <span class="tag">pytest</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-item reveal">
+          <div class="roadmap-number">02</div>
+
+          <div class="roadmap-content">
+            <h3>Web Development</h3>
+            <p>
+              Build responsive interfaces with HTML, CSS, and JavaScript while
+              learning how frontend applications communicate with APIs.
+            </p>
+
+            <div class="tag-container">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">REST</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-item reveal">
+          <div class="roadmap-number">03</div>
+
+          <div class="roadmap-content">
+            <h3>Python Frameworks</h3>
+            <p>
+              Create complete backend applications using FastAPI, Django, Flask,
+              authentication, validation, ORM tools, and database migrations.
+            </p>
+
+            <div class="tag-container">
+              <span class="tag">FastAPI</span>
+              <span class="tag">Django</span>
+              <span class="tag">Flask</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-item reveal">
+          <div class="roadmap-number">04</div>
+
+          <div class="roadmap-content">
+            <h3>Desktop Applications</h3>
+            <p>
+              Build desktop applications with Python and PySide6, then package
+              them for distribution using tools such as PyInstaller.
+            </p>
+
+            <div class="tag-container">
+              <span class="tag">PySide6</span>
+              <span class="tag">Qt</span>
+              <span class="tag">PyInstaller</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-item reveal">
+          <div class="roadmap-number">05</div>
+
+          <div class="roadmap-content">
+            <h3>DevOps and Deployment</h3>
+            <p>
+              Containerize applications, run automated tests, create CI/CD
+              pipelines, configure servers, deploy applications, and monitor
+              production services.
+            </p>
+
+            <div class="tag-container">
+              <span class="tag">Docker</span>
+              <span class="tag">Linux</span>
+              <span class="tag">GitHub Actions</span>
+              <span class="tag">Nginx</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DevOps Section -->
+    <section id="devops">
+      <span class="terminal-label">&gt; DEVOPS_PIPELINE: READY</span>
+
+      <h2>// DEVOPS_WORKFLOW</h2>
+
+      <p class="section-description">
+        My DevOps learning focuses on creating repeatable workflows that move
+        code safely from development to production.
+      </p>
+
+      <div class="devops-pipeline">
+        <div class="pipeline-step">
+          <i class="fa-solid fa-lightbulb"></i>
+          PLAN
+        </div>
+
+        <div class="pipeline-step">
+          <i class="fa-solid fa-code"></i>
+          CODE
+        </div>
+
+        <div class="pipeline-step">
+          <i class="fa-solid fa-vial"></i>
+          TEST
+        </div>
+
+        <div class="pipeline-step">
+          <i class="fa-brands fa-docker"></i>
+          BUILD
+        </div>
+
+        <div class="pipeline-step">
+          <i class="fa-solid fa-rocket"></i>
+          DEPLOY
+        </div>
+
+        <div class="pipeline-step">
+          <i class="fa-solid fa-chart-line"></i>
+          MONITOR
+        </div>
+      </div>
+
+      <div class="devops-grid">
+        <div class="devops-card reveal">
+          <h3>Containerization</h3>
+          <p>
+            Package Python applications and dependencies into predictable,
+            portable Docker containers.
+          </p>
+
+          <div class="tag-container">
+            <span class="tag">Dockerfile</span>
+            <span class="tag">Compose</span>
+          </div>
+        </div>
+
+        <div class="devops-card reveal">
+          <h3>CI/CD</h3>
+          <p>
+            Automatically run tests, quality checks, and deployment workflows
+            whenever code changes.
+          </p>
+
+          <div class="tag-container">
+            <span class="tag">GitHub Actions</span>
+            <span class="tag">pytest</span>
+          </div>
+        </div>
+
+        <div class="devops-card reveal">
+          <h3>Linux Servers</h3>
+          <p>
+            Learn server administration, SSH, permissions, processes, logs,
+            environment variables, and shell commands.
+          </p>
+
+          <div class="tag-container">
+            <span class="tag">Ubuntu</span>
+            <span class="tag">SSH</span>
+            <span class="tag">Bash</span>
+          </div>
+        </div>
+
+        <div class="devops-card reveal">
+          <h3>Monitoring</h3>
+          <p>
+            Track application health, logs, errors, performance, and service
+            availability in production.
+          </p>
+
+          <div class="tag-container">
+            <span class="tag">Logs</span>
+            <span class="tag">Health Checks</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <span class="terminal-label">&gt; OPENING_COMMUNICATION_CHANNEL...</span>
+
+      <h2>// CONTACT_ME</h2>
+
+      <p class="section-description">
+        Have a project idea, learning opportunity, or useful feedback? Send a
+        message.
+      </p>
+
+      <form id="contactForm">
+        <input
+          type="text"
+          id="name"
+          placeholder="YOUR_NAME"
+          aria-label="Your name"
+          required
+        />
+
+        <input
+          type="email"
+          id="email"
+          placeholder="YOUR_EMAIL"
+          aria-label="Your email"
+          required
+        />
+
+        <textarea
+          id="message"
+          rows="6"
+          placeholder="YOUR_MESSAGE..."
+          aria-label="Your message"
+          required
+        ></textarea>
+
+        <button type="submit" class="btn">
+          SEND_MESSAGE.SH
+        </button>
+
+        <p class="form-message" id="formMessage">
+          MESSAGE_RECEIVED: Thank you. I will get back to you soon.
+        </p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="social-icons">
+      <a
+        href="https://github.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub"
+      >
+        <i class="fa-brands fa-github"></i>
+      </a>
+
+      <a
+        href="https://linkedin.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="LinkedIn"
+      >
+        <i class="fa-brands fa-linkedin"></i>
+      </a>
+
+      <a
+        href="https://twitter.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Twitter"
+      >
+        <i class="fa-brands fa-x-twitter"></i>
+      </a>
+
+      <a
+        href="mailto:sam22@example.com"
+        aria-label="Email"
+      >
+        <i class="fa-solid fa-envelope"></i>
+      </a>
+    </div>
+
+    <p>
+      &copy; <span id="currentYear"></span> SAM22.
+      PYTHON DEVELOPER PORTFOLIO.
+    </p>
+  </footer>
+
+  <script>
+    const root = document.documentElement;
+    const themeToggleBtn = document.getElementById("themeToggleBtn");
+    const menuToggleBtn = document.getElementById("menuToggleBtn");
+    const navLinks = document.getElementById("navLinks");
+    const contactForm = document.getElementById("contactForm");
+    const formMessage = document.getElementById("formMessage");
+
+    /*
+      Theme handling
+    */
+    const savedTheme = localStorage.getItem("portfolio-theme");
+
+    if (savedTheme === "dark") {
+      root.setAttribute("data-theme", "dark");
+      themeToggleBtn.textContent = "[LIGHT_MODE]";
+    } else {
+      root.removeAttribute("data-theme");
+      themeToggleBtn.textContent = "[DARK_MODE]";
+    }
+
+    themeToggleBtn.addEventListener("click", () => {
+      const isDark = root.getAttribute("data-theme") === "dark";
+
+      if (isDark) {
+        root.removeAttribute("data-theme");
+        localStorage.setItem("portfolio-theme", "light");
+        themeToggleBtn.textContent = "[DARK_MODE]";
+      } else {
+        root.setAttribute("data-theme", "dark");
+        localStorage.setItem("portfolio-theme", "dark");
+        themeToggleBtn.textContent = "[LIGHT_MODE]";
+      }
+    });
+
+    /*
+      Mobile menu
+    */
+    menuToggleBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+
+      const isOpen = navLinks.classList.contains("open");
+      menuToggleBtn.textContent = isOpen ? "×" : "☰";
+      menuToggleBtn.setAttribute("aria-expanded", isOpen);
+    });
+
+    document.querySelectorAll(".nav-links a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggleBtn.textContent = "☰";
+        menuToggleBtn.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    /*
+      Contact form demo
+    */
+    contactForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      formMessage.style.display = "block";
+      contactForm.reset();
+    });
+
+    /*
+      Scroll reveal animation
+    */
+    const revealElements = document.querySelectorAll(".reveal");
+
+    const revealObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.15
+      }
+    );
+
+    revealElements.forEach((element) => {
+      revealObserver.observe(element);
+    });
+
+    /*
+      Current year
+    */
+    document.getElementById("currentYear").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>
